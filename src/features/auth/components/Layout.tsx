@@ -29,7 +29,7 @@ export const Layout = ({ children }: LayoutProps) => (
     <footer className='absolute bottom-0 w-full bg-gray-400 dark:bg-slate-300'>
       <div className='cointainer mx-auto flex items-center justify-center py-6 text-sm'>
         <span className='flex items-center gap-2.5 text-slate-100 dark:text-white'>
-          You don’t have an account?
+          You don&#39;t have an account?
           <Link href='/signup'>
             <a className='font-bold'>Sign Up</a>
           </Link>
