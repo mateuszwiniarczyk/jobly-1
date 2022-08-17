@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Layout } from '@/features/auth/components/Layout';
 
 const SignUp = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = handleSubmit((data) => data);
   const [accountType, setAccountType] = useState('company');
 
   const handleAccountTypeChange = (
@@ -91,11 +94,86 @@ const SignUp = () => {
             </svg>
           </div>
         </div>
-        {accountType === 'company' ? (
-          <h2>Company Form</h2>
-        ) : (
-          <h2>Person Form</h2>
-        )}
+
+        <form onSubmit={onSubmit}>
+          {accountType === 'company' ? (
+            <>
+              <label htmlFor='companyName' className='sr-only'>
+                Company name
+              </label>
+
+              <input
+                type='text'
+                className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+                placeholder='Company name'
+                {...register('companyName')}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor='fullName' className='sr-only'>
+                Full name
+              </label>
+
+              <input
+                type='text'
+                className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+                placeholder='Full name'
+                {...register('fullName')}
+              />
+            </>
+          )}
+          <label htmlFor='email' className='sr-only'>
+            Email
+          </label>
+
+          <input
+            type='email'
+            className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+            placeholder='Email'
+            {...register('email')}
+          />
+
+          <label htmlFor='phoneNumber' className='sr-only'>
+            Phone Number
+          </label>
+
+          <input
+            type='tel'
+            className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+            placeholder='Phone number'
+            {...register('phoneNumber')}
+          />
+
+          <label htmlFor='password' className='sr-only'>
+            Password
+          </label>
+
+          <input
+            type='password'
+            className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+            placeholder='Password'
+            {...register('password')}
+          />
+
+          <label htmlFor='confirmPassword' className='sr-only'>
+            Confirm password
+          </label>
+
+          <input
+            type='password'
+            className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
+            placeholder='Confirm password'
+            {...register('confirmPassword')}
+          />
+
+          <button
+            type='submit'
+            className='mt-7 block w-full rounded-lg bg-primary-200 p-5 text-sm font-bold text-white'
+          >
+            Sign Up
+          </button>
+        </form>
       </div>
     </Layout>
   );
