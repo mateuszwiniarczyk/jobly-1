@@ -31,10 +31,10 @@ const SignUp = () => {
             />
 
             <label
-              className='block cursor-pointer rounded-lg border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 peer-checked:border-primary-200 peer-checked:ring-1 peer-checked:ring-primary-200'
+              className='block cursor-pointer rounded-lg border border-gray-500 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 peer-checked:border-primary-200 peer-checked:ring-1 peer-checked:ring-primary-200 dark:border-slate-100 dark:hover:bg-slate-300'
               htmlFor='company'
             >
-              <span>Company</span>
+              <span className='dark:text-white'>Company</span>
 
               <span className='mt-1 block text-xs text-slate-100'>
                 Description
@@ -67,10 +67,10 @@ const SignUp = () => {
             />
 
             <label
-              className='hover:bg-gray-50 block cursor-pointer rounded-lg border border-gray-100 p-4 text-sm font-medium shadow-sm transition-colors peer-checked:border-primary-200 peer-checked:ring-1 peer-checked:ring-primary-200'
+              className='block cursor-pointer rounded-lg border border-gray-500 p-4 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 peer-checked:border-primary-200 peer-checked:ring-1 peer-checked:ring-primary-200 dark:border-slate-100 dark:hover:bg-slate-300'
               htmlFor='person'
             >
-              <span>Person</span>
+              <span className='dark:text-white'>Person</span>
 
               <span className='mt-1 block text-xs text-slate-100'>
                 Description
