@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 import FacebookIcon from 'public/svg/facebook.svg';
 import GoogleIcon from 'public/svg/google.svg';
 import TwitterIcon from 'public/svg/twitter.svg';
@@ -26,8 +28,19 @@ const socialButtons = [
 ];
 
 const SignIn = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit = handleSubmit((data) => data);
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.ok) {
+      router.push('/');
+    }
+  });
 
   return (
     <Layout>
