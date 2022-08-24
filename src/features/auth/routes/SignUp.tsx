@@ -134,17 +134,6 @@ const SignUp = () => {
             {...register('email')}
           />
 
-          <label htmlFor='phoneNumber' className='sr-only'>
-            Phone Number
-          </label>
-
-          <input
-            type='tel'
-            className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-            placeholder='Phone number'
-            {...register('phoneNumber')}
-          />
-
           <label htmlFor='password' className='sr-only'>
             Password
           </label>
