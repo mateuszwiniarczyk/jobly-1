@@ -11,10 +11,18 @@ datasource db {
   shadowDatabaseUrl = env("DATABASE_URL")
 }
 
+enum Type {
+  Person
+  Company
+}
+
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
+  name          String
+  email         String   @unique
+  password      String
+  type          Type
+  salt          String      
 
   @@map("users")
 }
