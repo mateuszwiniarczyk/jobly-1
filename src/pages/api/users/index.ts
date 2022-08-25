@@ -1,11 +1,14 @@
 import Prisma from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { create } from 'services/users/create';
 
-type UserType = Readonly<Omit<Prisma.User, 'id' | 'salt'>>;
+import { create } from '@/services/users/create';
+
+type AccountType = Readonly<Omit<Prisma.Account, 'id' | 'salt'>> & {
+  name: string;
+};
 
 interface ExtendedNextApiRequest extends NextApiRequest {
-  body: UserType;
+  body: AccountType;
 }
 
 const handler = async (req: ExtendedNextApiRequest, res: NextApiResponse) => {
@@ -13,7 +16,7 @@ const handler = async (req: ExtendedNextApiRequest, res: NextApiResponse) => {
     case 'POST': {
       try {
         const payload = req.body;
-        const { email } = await create(payload);
+        const email = await create(payload);
 
         res.status(200).json({ status: 'created', email });
       } catch (error) {
