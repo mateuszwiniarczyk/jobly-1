@@ -2,6 +2,8 @@ import Link from 'next/link';
 import ArrowBackIcon from 'public/svg/arrow_back.svg';
 import WorkIcon from 'public/svg/work.svg';
 
+import { Notifications } from '@/features/notifications/components/Notifications';
+
 type LayoutProps = { children: React.ReactNode };
 
 export const Layout = ({ children }: LayoutProps) => (
@@ -36,5 +38,6 @@ export const Layout = ({ children }: LayoutProps) => (
         </span>
       </div>
     </footer>
+    <Notifications />
   </div>
 );
