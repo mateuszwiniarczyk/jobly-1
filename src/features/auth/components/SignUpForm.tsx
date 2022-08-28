@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { axios } from '@/lib/axios';
+import { useAppDispatch } from '@/hooks/useAppStore';
+
+import { addNotification } from '@/features/notifications/notificationSlice';
 
 const SignUpForm = () => {
   const { register, handleSubmit, control } = useForm();
@@ -9,6 +13,8 @@ const SignUpForm = () => {
     control,
     name: 'type',
   });
+
+  const dispatch = useAppDispatch();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -31,6 +37,21 @@ const SignUpForm = () => {
       return;
     }
   });
+
+  useEffect(() => {
+    dispatch(
+      addNotification({ type: 'info', title: 'Post has been updated!' })
+    );
+    dispatch(
+      addNotification({ type: 'error', title: 'Post has been deleted!' })
+    );
+    dispatch(
+      addNotification({ type: 'warning', title: 'Post has been archived!' })
+    );
+    dispatch(
+      addNotification({ type: 'success', title: 'Post has been published!' })
+    );
+  }, [dispatch]);
   return (
     <form onSubmit={onSubmit}>
       <div className='mb-6 grid grid-cols-2 gap-8'>
