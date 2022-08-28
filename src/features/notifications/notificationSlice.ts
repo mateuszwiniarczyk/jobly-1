@@ -29,12 +29,15 @@ export const notificationsSlice = createSlice({
         message,
       });
     },
+    dismissNotification: (state, { payload }: PayloadAction<string>) => {
+      return state.filter((notification) => notification.id !== payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 
 export const {
-  actions: { addNotification },
+  actions: { addNotification, dismissNotification },
   reducer: notificationsReducer,
 } = notificationsSlice;
