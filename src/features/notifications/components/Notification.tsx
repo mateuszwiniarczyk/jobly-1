@@ -12,21 +12,10 @@ import {
 } from '@/features/notifications/notificationSlice';
 
 const icons = {
-  info: (
-    <InformationCircleIcon
-      className='h-6 w-6 fill-primary-200'
-      aria-hidden='true'
-    />
-  ),
-  success: (
-    <CheckCircleIcon className='h-6 w-6 fill-green-200' aria-hidden='true' />
-  ),
-  warning: (
-    <WarningCircleIcon className='h-6 w-6 fill-orange-200' aria-hidden='true' />
-  ),
-  error: (
-    <ErrorCircleIcon className='h-6 w-6 fill-pink-200' aria-hidden='true' />
-  ),
+  info: <InformationCircleIcon className='h-6 w-6' aria-hidden='true' />,
+  success: <CheckCircleIcon className='h-6 w-6' aria-hidden='true' />,
+  warning: <WarningCircleIcon className='h-6 w-6' aria-hidden='true' />,
+  error: <ErrorCircleIcon className='h-6 w-6' aria-hidden='true' />,
 };
 
 const Notification = ({ type, title, message, id }: Notification) => {
