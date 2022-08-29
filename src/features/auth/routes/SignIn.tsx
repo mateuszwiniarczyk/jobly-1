@@ -43,7 +43,7 @@ const SignIn = () => {
   });
 
   return (
-    <Layout>
+    <Layout authType='signIn'>
       <div className='mb-20 text-center xl:mb-10'>
         <h2 className='mb-2.5 dark:text-white'>Sign In to your account</h2>
         <p className='text-slate-100'>Enter your details to proceed further</p>
