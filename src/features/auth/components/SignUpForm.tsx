@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { axios } from '@/lib/axios';
 import { useAppDispatch } from '@/hooks/useAppStore';
 
+import { Button } from '@/components/Elements/Button';
+
 import { addNotification } from '@/features/notifications/notificationSlice';
 
 const SignUpForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit, control } = useForm();
   const type = useWatch({
     defaultValue: 'Company',
@@ -18,6 +22,7 @@ const SignUpForm = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      setIsLoading(true);
       const { confirmPassword, password, email, type, name, phoneNumber } =
         data;
 
@@ -33,25 +38,30 @@ const SignUpForm = () => {
       };
 
       await axios.post('/users', payload);
+
+      dispatch(
+        addNotification({
+          type: 'success',
+          title: 'The account has been created',
+        })
+      );
     } catch (error) {
-      return;
+      if (error instanceof AxiosError) {
+        const { response } = error;
+
+        dispatch(
+          addNotification({
+            type: 'error',
+            title: 'The account has not been created',
+            message: response?.data?.error,
+          })
+        );
+      }
+    } finally {
+      setIsLoading(false);
     }
   });
 
-  useEffect(() => {
-    dispatch(
-      addNotification({ type: 'info', title: 'Post has been updated!' })
-    );
-    dispatch(
-      addNotification({ type: 'error', title: 'Post has been deleted!' })
-    );
-    dispatch(
-      addNotification({ type: 'warning', title: 'Post has been archived!' })
-    );
-    dispatch(
-      addNotification({ type: 'success', title: 'Post has been published!' })
-    );
-  }, [dispatch]);
   return (
     <form onSubmit={onSubmit}>
       <div className='mb-6 grid grid-cols-2 gap-8'>
@@ -179,12 +189,9 @@ const SignUpForm = () => {
         {...register('confirmPassword')}
       />
 
-      <button
-        type='submit'
-        className='mt-7 block w-full rounded-lg bg-primary-200 p-5 text-sm font-bold text-white'
-      >
+      <Button type='submit' className='mt-7 w-full p-5' isLoading={isLoading}>
         Sign Up
-      </button>
+      </Button>
     </form>
   );
 };

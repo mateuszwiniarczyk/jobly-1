@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import FacebookIcon from 'public/svg/facebook.svg';
-import GoogleIcon from 'public/svg/google.svg';
-import TwitterIcon from 'public/svg/twitter.svg';
 import { useForm } from 'react-hook-form';
+
+import { Button } from '@/components/Elements/Button';
 
 import { Layout } from '@/features/auth/components/Layout';
 
@@ -11,21 +10,6 @@ type FormData = {
   email: string;
   password: string;
 };
-
-const socialButtons = [
-  {
-    name: 'Google',
-    icon: GoogleIcon,
-  },
-  {
-    name: 'Facebook',
-    icon: FacebookIcon,
-  },
-  {
-    name: 'Twitter',
-    icon: TwitterIcon,
-  },
-];
 
 const SignIn = () => {
   const router = useRouter();
@@ -71,32 +55,9 @@ const SignIn = () => {
           placeholder='Enter password'
           {...register('password')}
         />
-        <button
-          type='submit'
-          className='mt-7 block w-full rounded-lg bg-primary-200 p-5 text-sm font-bold text-white'
-        >
+        <Button type='submit' className='mt-7 block w-full p-5'>
           Sign In
-        </button>
-
-        <div className='relative mt-10'>
-          <hr className='block border-t-gray-700' />
-          <span className='absolute bottom-full right-2/4 translate-y-1/2 translate-x-1/2 bg-white px-7 text-slate-100 dark:bg-slate-200 dark:text-gray-700'>
-            Or
-          </span>
-        </div>
-
-        <div className='mt-10'>
-          {socialButtons.map(({ name, icon: Icon }) => (
-            <button
-              key={name}
-              type='button'
-              className='relative mt-2.5 block w-full rounded-lg border border-gray-700 p-5 text-center text-sm text-slate-100 dark:text-white'
-            >
-              <span className='font-bold'>Sign In with {name}</span>
-              <Icon className='absolute left-5 bottom-2/4 h-4 w-4 translate-y-1/2' />
-            </button>
-          ))}
-        </div>
+        </Button>
       </form>
     </Layout>
   );
