@@ -6,6 +6,7 @@ import { axios } from '@/lib/axios';
 import { useAppDispatch } from '@/hooks/useAppStore';
 
 import { Button } from '@/components/Elements/Button';
+import { InputField } from '@/components/Form/InputField';
 
 import { addNotification } from '@/features/notifications/notificationSlice';
 
@@ -135,58 +136,38 @@ const SignUpForm = () => {
         </div>
       </div>
 
-      <label htmlFor='name' className='sr-only'>
-        {type === 'Company' ? 'Company name' : 'Full name'}
-      </label>
-      <input
-        type='text'
-        className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-        placeholder={type === 'Company' ? 'Company name' : 'Full name'}
-        {...register('name')}
+      <InputField
+        className='mt-4'
+        label={type === 'Company' ? 'Company name' : 'Full name'}
+        registration={register('name')}
       />
 
-      <label htmlFor='email' className='sr-only'>
-        Email
-      </label>
-
-      <input
+      <InputField
+        className='mt-4'
+        label='Email'
         type='email'
-        className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-        placeholder='Email'
-        {...register('email')}
+        registration={register('email')}
       />
 
-      <label htmlFor='email' className='sr-only'>
-        Phone number
-      </label>
-
-      <input
+      <InputField
+        className='mt-4'
+        label='Phone number'
         type='tel'
-        className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-        placeholder='Phone number'
-        {...register('phoneNumber')}
+        registration={register('phoneNumber')}
       />
 
-      <label htmlFor='password' className='sr-only'>
-        Password
-      </label>
-
-      <input
+      <InputField
+        className='mt-4'
+        label='Password'
         type='password'
-        className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-        placeholder='Password'
-        {...register('password')}
+        registration={register('password')}
       />
 
-      <label htmlFor='password' className='sr-only'>
-        Confirm password
-      </label>
-
-      <input
+      <InputField
+        className='mt-4'
+        label='Confirm password'
         type='password'
-        className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-        placeholder='Confirm password'
-        {...register('confirmPassword')}
+        registration={register('confirmPassword')}
       />
 
       <Button type='submit' className='mt-7 w-full p-5' isLoading={isLoading}>

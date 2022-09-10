@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/Elements/Button';
+import { InputField } from '@/components/Form/InputField';
 
 import { Layout } from '@/features/auth/components/Layout';
 
@@ -34,27 +35,20 @@ const SignIn = () => {
       </div>
 
       <form onSubmit={onSubmit} className='mx-auto max-w-md'>
-        <label htmlFor='email' className='sr-only'>
-          Email
-        </label>
-
-        <input
+        <InputField
+          className='mt-4'
+          label='Enter email'
           type='email'
-          className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-          placeholder='Enter email'
-          {...register('email')}
+          registration={register('email')}
         />
 
-        <label htmlFor='password' className='sr-only'>
-          Password
-        </label>
-
-        <input
-          type='password'
-          className='focus:ring-blue-200 focus:border-blue-200 mt-4 h-14 w-full rounded-lg border-gray-700 p-4 text-sm font-bold text-black placeholder:font-bold placeholder:text-slate-100 dark:bg-transparent dark:text-white'
-          placeholder='Enter password'
-          {...register('password')}
+        <InputField
+          className='mt-4'
+          label='Enter password'
+          type='email'
+          registration={register('password')}
         />
+
         <Button type='submit' className='mt-7 block w-full p-5'>
           Sign In
         </Button>
