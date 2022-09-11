@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@/components/Elements/Button';
 import { InputField } from '@/components/Form/InputField';
 
+import { ROUTES } from '@/config';
+
 type FormData = {
   email: string;
   password: string;
@@ -22,7 +24,7 @@ const SignInForm = () => {
     });
 
     if (res?.ok) {
-      router.push('/');
+      router.push(ROUTES.HOME);
     }
   });
 
