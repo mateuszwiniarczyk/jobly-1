@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import ArrowBackIcon from 'public/svg/arrow_back.svg';
-import WorkIcon from 'public/svg/work.svg';
 import { useMemo } from 'react';
+
+import { Logo } from '@/components/Elements/Logo';
 
 import { ROUTES } from '@/config';
 import { Notifications } from '@/features/notifications/components/Notifications';
@@ -46,16 +47,7 @@ export const Layout = ({
               <ArrowBackIcon className='fill-slate-100' />
             </a>
           </Link>
-          <Link href={ROUTES.HOME}>
-            <a className='xl:flex xl:items-center xl:gap-2.5'>
-              <div className='flex h-11 w-11 items-center justify-center rounded-full bg-primary-200 p-3'>
-                <WorkIcon className='fill-white' />
-              </div>
-              <span className='hidden text-lg font-bold text-black dark:text-white xl:block'>
-                Jobly
-              </span>
-            </a>
-          </Link>
+          <Logo />
         </div>
       </nav>
       <div className='px-7 pb-8 pt-24'>
