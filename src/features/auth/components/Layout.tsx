@@ -8,9 +8,11 @@ import { Notifications } from '@/features/notifications/components/Notifications
 type LayoutProps = {
   children: React.ReactNode;
   authType: 'signIn' | 'signUp';
+  pageHeader: string;
+  pageDescription: string;
 };
 
-const authOptions = {
+const authTypes = {
   signIn: {
     url: '/signup',
     label: 'Sign Up',
@@ -25,7 +27,7 @@ const authOptions = {
 
 export const Layout = ({ children, authType }: LayoutProps) => {
   const { url, description, label } = useMemo(
-    () => authOptions[authType],
+    () => authTypes[authType],
     [authType]
   );
 
@@ -50,7 +52,15 @@ export const Layout = ({ children, authType }: LayoutProps) => {
           </Link>
         </div>
       </nav>
-      <div className='px-7 pb-8 pt-24'>{children}</div>
+      <div className='px-7 pb-8 pt-24'>
+        <div className='mb-20 text-center xl:mb-10'>
+          <h2 className='mb-2.5 dark:text-white'>Tell us about yourself</h2>
+          <p className='text-slate-100'>
+            Enter your details to proceed further
+          </p>
+        </div>
+        <div className='mx-auto max-w-md'>{children}</div>
+      </div>
       <footer className='absolute bottom-0 w-full bg-gray-400 dark:bg-slate-300'>
         <div className='cointainer mx-auto flex items-center justify-center py-6 text-sm'>
           <span className='flex items-center gap-2.5 text-slate-100 dark:text-white'>
