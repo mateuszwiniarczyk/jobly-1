@@ -1,21 +1,18 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { prisma } from '@/lib/prisma/db';
 
 import { hashPassword } from '@/utils/hashPassword';
 
-const schema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string(),
 });
 
-type PayloadType = {
-  email: string;
-  password: string;
-};
+type PayloadType = z.infer<typeof schema>;
 
 const authorize = async (payload: PayloadType) => {
-  const { email, password } = await schema.validateAsync(payload);
+  const { email, password } = schema.parse(payload);
 
   const user = await prisma.account.findUnique({
     where: {
