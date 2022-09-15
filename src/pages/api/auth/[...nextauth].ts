@@ -1,6 +1,8 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import { authorize } from '@/services/users/authorize';
+
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -15,9 +17,19 @@ export default NextAuth({
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize() {
+      async authorize(credentials) {
+        // console.log(email?.email);
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: 1, name: 'J Smith', email: 'jsmith@example.com' };
+        let user;
+
+        if (credentials?.email && credentials?.password) {
+          const { email, password } = credentials;
+
+          user = await authorize({
+            email,
+            password,
+          });
+        }
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT

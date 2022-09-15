@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+
+import { useAppDispatch } from '@/hooks/useAppStore';
 
 import { Button } from '@/components/Elements/Button';
 import { InputField } from '@/components/Form/InputField';
 
-import { ROUTES } from '@/config';
+import { addNotification } from '@/features/notifications/notificationSlice';
 
 type FormData = {
   email: string;
@@ -13,8 +14,8 @@ type FormData = {
 };
 
 const SignInForm = () => {
-  const router = useRouter();
   const { register, handleSubmit } = useForm<FormData>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
     const res = await signIn('credentials', {
@@ -24,7 +25,20 @@ const SignInForm = () => {
     });
 
     if (res?.ok) {
-      router.push(ROUTES.HOME);
+      dispatch(
+        addNotification({
+          type: 'success',
+          title: 'Authorized',
+        })
+      );
+    } else {
+      dispatch(
+        addNotification({
+          type: 'error',
+          title: 'Not authorized. Try again.',
+          message: res?.error,
+        })
+      );
     }
   });
 
@@ -40,7 +54,7 @@ const SignInForm = () => {
       <InputField
         className='mt-4'
         label='Enter password'
-        type='email'
+        type='password'
         registration={register('password')}
       />
 

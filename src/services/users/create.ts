@@ -4,6 +4,8 @@ import Joi from 'joi';
 
 import { prisma } from '@/lib/prisma/db';
 
+import { hashPassword } from '@/utils/hashPassword';
+
 type AccountType = Readonly<Omit<Prisma.Account, 'id' | 'salt'>> & {
   name: string;
 };
@@ -32,7 +34,7 @@ const create = async (payload: AccountType) => {
   if (isExistingUser) throw new Error('User already exists');
 
   const passwordSalt = bcrypt.genSaltSync(10);
-  const passwordHash = bcrypt.hashSync(password, passwordSalt);
+  const passwordHash = hashPassword(password, passwordSalt);
 
   const { id } = await prisma.account.create({
     data: {
