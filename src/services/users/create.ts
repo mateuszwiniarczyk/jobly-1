@@ -1,6 +1,6 @@
 import Prisma from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { prisma } from '@/lib/prisma/db';
 
@@ -10,20 +10,19 @@ type AccountType = Readonly<Omit<Prisma.Account, 'id' | 'salt'>> & {
   name: string;
 };
 
-const schema = Joi.object<AccountType>({
-  email: Joi.string().email().required(),
-  name: Joi.string().required(),
-  password: Joi.string().required(),
-  type: Joi.string().valid(...Object.values(Prisma.Type)),
-  phoneNumber: Joi.string()
+const schema = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  password: z.string(),
+  type: z.enum(['Person', 'Company']),
+  phoneNumber: z
+    .string()
     .length(10)
-    .pattern(/^[0-9]+$/)
-    .required(),
+    .regex(/^[0-9]+$/),
 });
 
 const create = async (payload: AccountType) => {
-  const { email, name, type, password, phoneNumber } =
-    await schema.validateAsync(payload);
+  const { email, name, type, password, phoneNumber } = schema.parse(payload);
 
   const isExistingUser = await prisma.account.findUnique({
     where: {
