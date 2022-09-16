@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useAppDispatch } from '@/hooks/useAppStore';
@@ -15,30 +17,48 @@ type FormData = {
 
 const SignInForm = () => {
   const { register, handleSubmit } = useForm<FormData>();
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
-    const res = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
+      setIsLoading(true);
+      const res = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
 
-    if (res?.ok) {
-      dispatch(
-        addNotification({
-          type: 'success',
-          title: 'Authorized',
-        })
-      );
-    } else {
-      dispatch(
-        addNotification({
-          type: 'error',
-          title: 'Not authorized. Try again.',
-          message: res?.error,
-        })
-      );
+      if (res?.ok) {
+        dispatch(
+          addNotification({
+            type: 'success',
+            title: 'Authorized',
+          })
+        );
+      } else {
+        dispatch(
+          addNotification({
+            type: 'error',
+            title: 'Not authorized. Try again.',
+            message: res?.error,
+          })
+        );
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const { response } = error;
+
+        dispatch(
+          addNotification({
+            type: 'error',
+            title: 'Not authorized. Try again.',
+            message: response?.data?.error,
+          })
+        );
+      }
+    } finally {
+      setIsLoading(false);
     }
   });
 
@@ -58,7 +78,11 @@ const SignInForm = () => {
         registration={register('password')}
       />
 
-      <Button type='submit' className='mt-7 block w-full p-5'>
+      <Button
+        type='submit'
+        className='mt-7 block w-full p-5'
+        isLoading={isLoading}
+      >
         Sign In
       </Button>
     </form>
