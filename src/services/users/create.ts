@@ -17,12 +17,12 @@ const schema = z.object({
     .regex(/^[0-9]+$/),
 });
 
-export type AccountType = z.infer<typeof schema>;
+export type UserType = z.infer<typeof schema>;
 
-const create = async (payload: AccountType) => {
+const create = async (payload: UserType) => {
   const { email, name, type, password, phoneNumber } = schema.parse(payload);
 
-  const isExistingUser = await prisma.account.findUnique({
+  const isExistingUser = await prisma.user.findUnique({
     where: {
       email,
     },
@@ -33,7 +33,7 @@ const create = async (payload: AccountType) => {
   const passwordSalt = bcrypt.genSaltSync(10);
   const passwordHash = hashPassword(password, passwordSalt);
 
-  const { id } = await prisma.account.create({
+  const { id } = await prisma.user.create({
     data: {
       email,
       type,
@@ -48,7 +48,7 @@ const create = async (payload: AccountType) => {
       await prisma.person.create({
         data: {
           fullName: name,
-          accountId: id,
+          userId: id,
         },
       });
       break;
@@ -56,12 +56,12 @@ const create = async (payload: AccountType) => {
       await prisma.company.create({
         data: {
           name,
-          accountId: id,
+          userId: id,
         },
       });
       break;
     default:
-      throw new Error('Invalid account type');
+      throw new Error('Invalid user type');
   }
 
   return email;

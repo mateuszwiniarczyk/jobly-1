@@ -6,11 +6,11 @@ import { useAppDispatch } from '@/hooks/useAppStore';
 import { Button } from '@/components/Elements/Button';
 import { InputField } from '@/components/Form/InputField';
 
-import { useCreateAccount } from '@/features/auth/api/signUp';
+import { useCreateUser } from '@/features/auth/api/signUp';
 import { addNotification } from '@/features/notifications/notificationSlice';
 
 const SignUpForm = () => {
-  const createAccountMutation = useCreateAccount();
+  const createUserMutation = useCreateUser();
   const dispatch = useAppDispatch();
 
   const { register, handleSubmit, control } = useForm();
@@ -36,13 +36,13 @@ const SignUpForm = () => {
         phoneNumber,
       };
 
-      await createAccountMutation.mutateAsync(payload);
+      await createUserMutation.mutateAsync(payload);
     } catch (error) {
       if (error instanceof Error && !(error instanceof AxiosError)) {
         dispatch(
           addNotification({
             type: 'error',
-            title: 'The account has not been created',
+            title: 'The user has not been created',
             message: error.message,
           })
         );
@@ -160,7 +160,7 @@ const SignUpForm = () => {
       <Button
         type='submit'
         className='mt-7 w-full p-5'
-        isLoading={createAccountMutation.isLoading}
+        isLoading={createUserMutation.isLoading}
       >
         Sign Up
       </Button>

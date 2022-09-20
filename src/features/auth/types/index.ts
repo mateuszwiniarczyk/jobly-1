@@ -1,4 +1,4 @@
-export type AccountResponse = {
+export type UserResponse = {
   status: string;
   email: string;
 };

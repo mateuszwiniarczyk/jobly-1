@@ -2,7 +2,7 @@
 CREATE TYPE "Type" AS ENUM ('Person', 'Company');
 
 -- CreateTable
-CREATE TABLE "account" (
+CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
@@ -12,14 +12,14 @@ CREATE TABLE "account" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "account_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "company" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "accountId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "company_pkey" PRIMARY KEY ("id")
 );
@@ -28,22 +28,22 @@ CREATE TABLE "company" (
 CREATE TABLE "person" (
     "id" TEXT NOT NULL,
     "fullName" TEXT NOT NULL,
-    "accountId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "person_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "account_email_key" ON "account"("email");
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "company_accountId_key" ON "company"("accountId");
+CREATE UNIQUE INDEX "company_userId_key" ON "company"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "person_accountId_key" ON "person"("accountId");
+CREATE UNIQUE INDEX "person_userId_key" ON "person"("userId");
 
 -- AddForeignKey
-ALTER TABLE "company" ADD CONSTRAINT "company_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "company" ADD CONSTRAINT "company_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "person" ADD CONSTRAINT "person_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "person" ADD CONSTRAINT "person_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { axios } from '@/lib/axios';
 import { useAppDispatch } from '@/hooks/useAppStore';
 
-import { AccountResponse } from '@/features/auth/types';
+import { UserResponse } from '@/features/auth/types';
 import { addNotification } from '@/features/notifications/notificationSlice';
 
 export type SignUpCredentialsDTO = {
@@ -16,10 +16,10 @@ export type SignUpCredentialsDTO = {
 };
 
 export const signUpWithEmailAndPassword = (data: SignUpCredentialsDTO) => {
-  return axios.post<AccountResponse>('/users', data);
+  return axios.post<UserResponse>('/users', data);
 };
 
-export const useCreateAccount = () => {
+export const useCreateUser = () => {
   const dispatch = useAppDispatch();
 
   return useMutation({
@@ -28,7 +28,7 @@ export const useCreateAccount = () => {
       dispatch(
         addNotification({
           type: 'success',
-          title: `The account ${variables.name} has been created`,
+          title: `The user ${variables.name} has been created`,
         })
       );
     },
@@ -37,7 +37,7 @@ export const useCreateAccount = () => {
         dispatch(
           addNotification({
             type: 'error',
-            title: 'The account has not been created',
+            title: 'The user has not been created',
             message: error.response?.data?.error,
           })
         );
