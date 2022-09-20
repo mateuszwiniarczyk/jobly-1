@@ -6,20 +6,18 @@ import { prisma } from '@/lib/prisma/db';
 
 import { hashPassword } from '@/utils/hashPassword';
 
-type AccountType = Readonly<Omit<Prisma.Account, 'id' | 'salt'>> & {
-  name: string;
-};
-
 const schema = z.object({
   email: z.string().email(),
-  name: z.string(),
-  password: z.string(),
+  name: z.string().min(4),
+  password: z.string().min(8),
   type: z.enum(['Person', 'Company']),
   phoneNumber: z
     .string()
     .length(10)
     .regex(/^[0-9]+$/),
 });
+
+export type AccountType = z.infer<typeof schema>;
 
 const create = async (payload: AccountType) => {
   const { email, name, type, password, phoneNumber } = schema.parse(payload);

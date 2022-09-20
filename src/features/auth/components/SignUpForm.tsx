@@ -1,17 +1,18 @@
 import { AxiosError } from 'axios';
-import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { axios } from '@/lib/axios';
 import { useAppDispatch } from '@/hooks/useAppStore';
 
 import { Button } from '@/components/Elements/Button';
 import { InputField } from '@/components/Form/InputField';
 
+import { useCreateAccount } from '@/features/auth/api/signUp';
 import { addNotification } from '@/features/notifications/notificationSlice';
 
 const SignUpForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const createAccountMutation = useCreateAccount();
+  const dispatch = useAppDispatch();
+
   const { register, handleSubmit, control } = useForm();
   const type = useWatch({
     defaultValue: 'Company',
@@ -19,11 +20,8 @@ const SignUpForm = () => {
     name: 'type',
   });
 
-  const dispatch = useAppDispatch();
-
   const onSubmit = handleSubmit(async (data) => {
     try {
-      setIsLoading(true);
       const { confirmPassword, password, email, type, name, phoneNumber } =
         data;
 
@@ -38,28 +36,17 @@ const SignUpForm = () => {
         phoneNumber,
       };
 
-      await axios.post('/users', payload);
-
-      dispatch(
-        addNotification({
-          type: 'success',
-          title: 'The account has been created',
-        })
-      );
+      await createAccountMutation.mutateAsync(payload);
     } catch (error) {
-      if (error instanceof AxiosError) {
-        const { response } = error;
-
+      if (error instanceof Error && !(error instanceof AxiosError)) {
         dispatch(
           addNotification({
             type: 'error',
             title: 'The account has not been created',
-            message: response?.data?.error,
+            message: error.message,
           })
         );
       }
-    } finally {
-      setIsLoading(false);
     }
   });
 
@@ -170,7 +157,11 @@ const SignUpForm = () => {
         registration={register('confirmPassword')}
       />
 
-      <Button type='submit' className='mt-7 w-full p-5' isLoading={isLoading}>
+      <Button
+        type='submit'
+        className='mt-7 w-full p-5'
+        isLoading={createAccountMutation.isLoading}
+      >
         Sign Up
       </Button>
     </form>

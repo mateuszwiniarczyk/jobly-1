@@ -1,11 +1,7 @@
-import Prisma from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { z } from 'zod';
 
-import { create } from '@/services/users/create';
-
-type AccountType = Readonly<Omit<Prisma.Account, 'id' | 'salt'>> & {
-  name: string;
-};
+import { AccountType, create } from '@/services/users/create';
 
 interface ExtendedNextApiRequest extends NextApiRequest {
   body: AccountType;
@@ -20,9 +16,13 @@ const handler = async (req: ExtendedNextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json({ status: 'created', email });
       } catch (error) {
-        if (error instanceof Error) {
-          res.status(422).json({ status: 'not_created', error: error.message });
+        let message;
+        if (error instanceof z.ZodError) {
+          message = `${error.issues[0].path[0]}: ${error.issues[0].message}`;
+        } else if (error instanceof Error) {
+          message = error.message;
         }
+        res.status(422).json({ status: 'not_created', error: message });
       }
 
       break;
