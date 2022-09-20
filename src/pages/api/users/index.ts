@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 
-import { AccountType, create } from '@/services/users/create';
+import { create, UserType } from '@/services/users/create';
 
 interface ExtendedNextApiRequest extends NextApiRequest {
-  body: AccountType;
+  body: UserType;
 }
 
 const handler = async (req: ExtendedNextApiRequest, res: NextApiResponse) => {

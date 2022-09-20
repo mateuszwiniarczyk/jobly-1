@@ -14,7 +14,7 @@ type PayloadType = z.infer<typeof schema>;
 const authorize = async (payload: PayloadType) => {
   const { email, password } = schema.parse(payload);
 
-  const user = await prisma.account.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email,
     },
