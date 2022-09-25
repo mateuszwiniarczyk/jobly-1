@@ -21,8 +21,8 @@ const Button = ({
     )}
     disabled={isLoading}
   >
-    <span className='mx-2'>{children}</span>
-    {isLoading && <Spinner variant='light' size='sm' />}
+    {children}
+    {isLoading && <Spinner variant='light' size='sm' className='ml-2' />}
   </button>
 );
 
