@@ -27,6 +27,17 @@ function createAccount({
   cy.findByText(`The user ${fullName} has been created`).should('exist');
 }
 
+function signIn({ email, password }: { email: string; password: string }) {
+  cy.visit('/signin');
+
+  cy.findAllByPlaceholderText(/email/i).type(email);
+  cy.findByPlaceholderText(/password/i).type(password);
+
+  cy.findByRole('button', { name: /sign in/i })
+    .click()
+    .should('be.disabled');
+}
+
 describe('Authentication', () => {
   it('successfully creates account', () => {
     const { email, fullName, password, phoneNumber } = userGenerator();
@@ -49,15 +60,24 @@ describe('Authentication', () => {
       confirmPassword: password,
     });
 
-    cy.visit('/signin');
-
-    cy.findAllByPlaceholderText(/email/i).type(email);
-    cy.findByPlaceholderText(/password/i).type(password);
-
-    cy.findByRole('button', { name: /sign in/i })
-      .click()
-      .should('be.disabled');
+    signIn({ email, password });
 
     cy.findByText(/authorized/i).should('exist');
+  });
+
+  it('sign-in fails when you provide incorrect credentials', () => {
+    const { email, fullName, password, phoneNumber } = userGenerator();
+    createAccount({
+      email,
+      fullName,
+      phoneNumber,
+      password,
+      confirmPassword: password,
+    });
+
+    const incorrectPassword = `${password}_incorrect`;
+    signIn({ email, password: incorrectPassword });
+
+    cy.findByText('Not authorized. Try again.').should('exist');
   });
 });
