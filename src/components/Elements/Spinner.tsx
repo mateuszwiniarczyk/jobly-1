@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-// import SpinnerIcon from 'public/svg/spinner.svg';
 
 const sizes = {
   sm: 'h-5 w-5',

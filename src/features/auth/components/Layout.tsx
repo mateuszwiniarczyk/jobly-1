@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import ArrowBackIcon from 'public/svg/arrow_back.svg';
 import { useMemo } from 'react';
 
 import { Logo } from '@/components/Elements/Logo';
 
 import { ROUTES } from '@/config';
 import { Notifications } from '@/features/notifications/components/Notifications';
+
+import ArrowBackIcon from '~/svg/arrow_back.svg';
 
 type LayoutProps = {
   children: React.ReactNode;

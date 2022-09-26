@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import WorkIcon from 'public/svg/work.svg';
 
 import { ROUTES } from '@/config';
+
+import WorkIcon from '~/svg/work.svg';
 
 const Logo = () => (
   <Link href={ROUTES.HOME}>
