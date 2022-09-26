@@ -1,3 +1,4 @@
+import { ROUTES } from '../../src/config';
 import { userGenerator } from '../../src/test/data-generators';
 
 type AccountType = ReturnType<typeof userGenerator> & {
@@ -11,7 +12,7 @@ function createAccount({
   password,
   confirmPassword,
 }: AccountType) {
-  cy.visit('/signup');
+  cy.visit(ROUTES.SIGN_UP);
 
   cy.findByText('Person').click();
 
@@ -28,7 +29,7 @@ function createAccount({
 }
 
 function signIn({ email, password }: { email: string; password: string }) {
-  cy.visit('/signin');
+  cy.visit(ROUTES.SIGN_IN);
 
   cy.findAllByPlaceholderText(/email/i).type(email);
   cy.findByPlaceholderText(/password/i).type(password);

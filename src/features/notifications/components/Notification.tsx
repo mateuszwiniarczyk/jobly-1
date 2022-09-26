@@ -1,15 +1,15 @@
-import CheckCircleIcon from 'public/svg/check.svg';
-import CloseIcon from 'public/svg/close.svg';
-import ErrorCircleIcon from 'public/svg/error.svg';
-import InformationCircleIcon from 'public/svg/info.svg';
-import WarningCircleIcon from 'public/svg/warning.svg';
-
 import { useAppDispatch } from '@/hooks/useAppStore';
 
 import {
   dismissNotification,
   Notification,
 } from '@/features/notifications/notificationSlice';
+
+import CheckCircleIcon from '~/svg/check.svg';
+import CloseIcon from '~/svg/close.svg';
+import ErrorCircleIcon from '~/svg/error.svg';
+import InformationCircleIcon from '~/svg/info.svg';
+import WarningCircleIcon from '~/svg/warning.svg';
 
 const icons = {
   info: <InformationCircleIcon className='h-6 w-6' aria-hidden='true' />,
