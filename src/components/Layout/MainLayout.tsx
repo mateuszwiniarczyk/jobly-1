@@ -84,29 +84,27 @@ const DarkModeButton = () => {
   return (
     <button id='theme-toggle' type='button' onClick={toggleDarkMode}>
       {theme === 'light' ? (
-        <DarkModeIcon className='h-5 w-5 fill-black' />
+        <DarkModeIcon className='h-7 w-7 fill-black' />
       ) : (
-        <LightModeIcon className='h-5 w-5 fill-slate-100' />
+        <LightModeIcon className='h-7 w-7 fill-slate-100' />
       )}
     </button>
   );
 };
 
-const ActionBar = () => {
-  return (
-    <div className='ml-auto hidden lg:flex lg:items-center lg:gap-5'>
-      <DarkModeButton />
-      <NotificationIcon className='h-7 w-7 fill-black dark:fill-slate-100' />
-      <Image
-        src='/img/avatar.jpg'
-        width='36'
-        height='36'
-        className='cursor-pointer rounded-full'
-        alt='User avatar'
-      />
-    </div>
-  );
-};
+const ActionBar = () => (
+  <div className='ml-auto hidden lg:flex lg:items-center lg:gap-5'>
+    <DarkModeButton />
+    <NotificationIcon className='h-7 w-7 fill-black dark:fill-slate-100' />
+    <Image
+      src='/img/avatar.jpg'
+      width='36'
+      height='36'
+      className='cursor-pointer rounded-full'
+      alt='User avatar'
+    />
+  </div>
+);
 
 type MainLayoutProps = {
   children: React.ReactNode;
