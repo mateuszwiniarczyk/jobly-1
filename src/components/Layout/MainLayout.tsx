@@ -1,13 +1,16 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 import { Logo } from '@/components/Elements/Logo';
 
 import { ROUTES } from '@/config';
 
 import CloseMenuIcon from '~/svg/close.svg';
+import DarkModeIcon from '~/svg/darkMode.svg';
+import LightModeIcon from '~/svg/lightMode.svg';
 import MenuIcon from '~/svg/menu.svg';
 import NotificationIcon from '~/svg/notification.svg';
 
@@ -64,18 +67,46 @@ const Navigation = () => {
   );
 };
 
-const ActionBar = () => (
-  <div className='ml-auto hidden lg:flex lg:items-center lg:gap-5'>
-    <NotificationIcon className='h-7 w-7 fill-slate-100' />
-    <Image
-      src='/img/avatar.jpg'
-      width='36'
-      height='36'
-      className='cursor-pointer rounded-full'
-      alt='User avatar'
-    />
-  </div>
-);
+const DarkModeButton = () => {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  const toggleDarkMode = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
+  // When mounted on client, now we can show the UI
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
+  return (
+    <button id='theme-toggle' type='button' onClick={toggleDarkMode}>
+      {theme === 'light' ? (
+        <DarkModeIcon className='h-5 w-5 fill-black' />
+      ) : (
+        <LightModeIcon className='h-5 w-5 fill-slate-100' />
+      )}
+    </button>
+  );
+};
+
+const ActionBar = () => {
+  return (
+    <div className='ml-auto hidden lg:flex lg:items-center lg:gap-5'>
+      <DarkModeButton />
+      <NotificationIcon className='h-7 w-7 fill-black dark:fill-slate-100' />
+      <Image
+        src='/img/avatar.jpg'
+        width='36'
+        height='36'
+        className='cursor-pointer rounded-full'
+        alt='User avatar'
+      />
+    </div>
+  );
+};
 
 type MainLayoutProps = {
   children: React.ReactNode;
