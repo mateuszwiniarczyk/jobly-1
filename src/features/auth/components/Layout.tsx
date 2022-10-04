@@ -43,7 +43,7 @@ export const Layout = ({
     <div className='relative flex min-h-screen flex-col bg-white pb-20 dark:bg-slate-200'>
       <nav className='border-b border-gray-700 dark:border-slate-100'>
         <div className='container relative mx-auto flex items-center justify-center py-5 px-7 sm:px-0 xl:justify-start'>
-          <Link href={ROUTES.HOME}>
+          <Link href={ROUTES.OFFERS}>
             <a className='absolute bottom-1/2 left-5 translate-y-1/2 cursor-pointer xl:hidden'>
               <ArrowBackIcon className='fill-slate-100' />
             </a>

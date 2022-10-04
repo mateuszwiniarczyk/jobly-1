@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { clsxm } from '@/lib/clsxm';
 
 const sizes = {
   sm: 'h-5 w-5',
@@ -25,7 +25,7 @@ export const Spinner = ({
 }: SpinnerProps) => (
   <>
     <svg
-      className={clsx(
+      className={clsxm(
         'animate-spin',
         sizes[size],
         variants[variant],

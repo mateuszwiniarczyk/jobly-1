@@ -65,24 +65,26 @@ const SignInForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <InputField
+        id='email'
         className='mt-4'
-        label='Enter email'
+        labelClassName='sr-only'
+        placeholder='Enter email'
+        label='Email'
         type='email'
         registration={register('email')}
       />
 
       <InputField
+        id='password'
         className='mt-4'
-        label='Enter password'
+        labelClassName='sr-only'
+        placeholder='Enter password'
+        label='Password'
         type='password'
         registration={register('password')}
       />
 
-      <Button
-        type='submit'
-        className='mt-7 block w-full p-5'
-        isLoading={isLoading}
-      >
+      <Button type='submit' className='mt-7 block' isLoading={isLoading}>
         Sign In
       </Button>
     </form>

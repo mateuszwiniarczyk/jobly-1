@@ -1,4 +1,4 @@
-import { clsx } from 'clsx';
+import { clsxm } from '@/lib/clsxm';
 
 import { Spinner } from '@/components/Elements/Spinner';
 
@@ -15,8 +15,8 @@ const Button = ({
 }: ButtonProps) => (
   <button
     type={type}
-    className={clsx(
-      'flex items-center justify-center rounded-lg bg-primary-200 text-sm font-bold text-white disabled:pointer-events-none disabled:opacity-75',
+    className={clsxm(
+      'flex w-full items-center justify-center rounded-lg bg-primary-200 p-5 text-sm font-bold text-white disabled:pointer-events-none disabled:opacity-75',
       className
     )}
     disabled={isLoading}

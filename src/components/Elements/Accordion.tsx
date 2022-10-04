@@ -1,20 +1,26 @@
-import clsx from 'clsx';
+import { clsxm } from '@/lib/clsxm';
 
 type AccordionProps = {
   children: React.ReactNode;
   header: string;
   headerClassName?: string;
+  className?: string;
 };
 
-const Accordion = ({ children, header, headerClassName }: AccordionProps) => (
-  <details open className='group'>
+const Accordion = ({
+  children,
+  className,
+  header,
+  headerClassName,
+}: AccordionProps) => (
+  <details open className={clsxm('group my-2', className)}>
     <summary
-      className={clsx(
-        'group flex cursor-pointer items-center rounded-lg px-4 py-2',
+      className={clsxm(
+        'group mb-4 flex cursor-pointer items-center rounded-lg',
         headerClassName
       )}
     >
-      <span className='text-sm font-medium'>{header}</span>
+      <span className='text-sm font-bold'>{header}</span>
 
       <span className='ml-auto shrink-0 transition duration-300 group-open:-rotate-180'>
         <svg
@@ -31,7 +37,6 @@ const Accordion = ({ children, header, headerClassName }: AccordionProps) => (
         </svg>
       </span>
     </summary>
-
     {children}
   </details>
 );

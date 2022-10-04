@@ -1,8 +1,9 @@
-import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+
+import { clsxm } from '@/lib/clsxm';
 
 import { Logo } from '@/components/Elements/Logo';
 
@@ -16,20 +17,16 @@ import NotificationIcon from '~/svg/notification.svg';
 
 const routes = [
   {
-    label: 'Home',
-    path: ROUTES.HOME,
-  },
-  {
     label: 'Offers',
     path: ROUTES.OFFERS,
   },
   {
     label: 'Dashboard',
-    path: ROUTES.HOME,
+    path: ROUTES.OFFERS,
   },
   {
     label: 'My profile',
-    path: ROUTES.HOME,
+    path: ROUTES.OFFERS,
   },
 ];
 
@@ -50,7 +47,7 @@ const Navigation = () => {
       </button>
       <ul
         hidden={isNavVisible}
-        className={clsx(
+        className={clsxm(
           isNavVisible ? 'translate-x-0' : 'translate-x-full',
           'fixed inset-0 z-10 flex flex-col items-center justify-center gap-6 bg-white font-bold transition-transform dark:bg-slate-200 dark:text-white lg:static lg:ml-28 lg:translate-x-0 lg:flex-row lg:items-center lg:bg-transparent lg:transition-none'
         )}
@@ -119,6 +116,6 @@ export const MainLayout = ({ children }: MainLayoutProps) => (
         <ActionBar />
       </div>
     </nav>
-    <main className='container mx-auto dark:text-white'>{children}</main>
+    <main className='container mx-auto px-4 dark:text-white'>{children}</main>
   </div>
 );

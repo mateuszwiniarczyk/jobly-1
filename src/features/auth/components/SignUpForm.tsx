@@ -124,42 +124,57 @@ const SignUpForm = () => {
       </div>
 
       <InputField
+        id='name'
         className='mt-4'
-        label={type === 'Company' ? 'Company name' : 'Full name'}
+        labelClassName='sr-only'
+        label='Name'
+        placeholder={type === 'Company' ? 'Company name' : 'Full name'}
         registration={register('name')}
       />
 
       <InputField
+        id='email'
         className='mt-4'
+        labelClassName='sr-only'
         label='Email'
+        placeholder='Email'
         type='email'
         registration={register('email')}
       />
 
       <InputField
+        id='phoneNumber'
         className='mt-4'
+        labelClassName='sr-only'
         label='Phone number'
+        placeholder='Phone number'
         type='tel'
         registration={register('phoneNumber')}
       />
 
       <InputField
+        id='password'
         className='mt-4'
+        labelClassName='sr-only'
         label='Password'
+        placeholder='Password'
         type='password'
         registration={register('password')}
       />
 
       <InputField
+        id='confirmPassword'
         className='mt-4'
+        labelClassName='sr-only'
         label='Confirm password'
+        placeholder='Confirm password'
         type='password'
         registration={register('confirmPassword')}
       />
 
       <Button
         type='submit'
-        className='mt-7 w-full p-5'
+        className='mt-7'
         isLoading={createUserMutation.isLoading}
       >
         Sign Up
